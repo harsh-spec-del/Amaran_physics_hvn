@@ -41,18 +41,19 @@ jobs:
           pip install pyinstaller
       - name: Build standalone backend executable
         run: python scripts/build_backend.py
+      - name: Check backend-dist output
+        run: Get-ChildItem backend-dist/
       - name: Set up Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: Build and Package
         run: npm run build && npm run package
       - name: List installer output
-        run: |
-          if ($IsWindows) { Get-ChildItem dist/installer/ } else { ls -la dist/installer/ }
+        run: Get-ChildItem dist/installer/
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
@@ -67,45 +68,46 @@ jobs:
           prerelease: true
           files: dist/installer/*.exe
 
-  build-linux:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install backend dependencies + PyInstaller
-        run: |
-          pip install -r requirements.txt
-          pip install pyinstaller
-      - name: Build standalone backend executable
-        run: python scripts/build_backend.py
-      - name: Install Linux dependencies for electron-builder
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libfuse2 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
-      - name: Set up Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
-      - name: Build and Package
-        run: npm run build && npm run package
-      - name: List installer output
-        run: ls -la dist/installer/
-      - name: Upload Installer
-        uses: actions/upload-artifact@v4
-        with:
-          name: installer-linux
-          path: dist/installer/*.AppImage
-      - name: Publish to "desktop-latest" release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: desktop-latest
-          name: "Amaran Physics — latest desktop build"
-          body: "Auto-updated on every push to main. Always reflects the current main branch — not a versioned release."
-          prerelease: true
-          files: dist/installer/*.AppImage
+  # build-linux: disabled for now, will enable after Windows works
+  # build-linux:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Set up Python 3.11
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: '3.11'
+  #     - name: Install backend dependencies + PyInstaller
+  #       run: |
+  #         pip install -r requirements.txt
+  #         pip install pyinstaller
+  #     - name: Build standalone backend executable
+  #       run: python scripts/build_backend.py
+  #     - name: Install Linux dependencies for electron-builder
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y libfuse2 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
+  #     - name: Set up Node.js 20
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '20'
+  #         cache: 'npm'
+  #     - name: Install dependencies
+  #       run: npm ci
+  #     - name: Build and Package
+  #       run: npm run build && npm run package
+  #     - name: List installer output
+  #       run: ls -la dist/installer/
+  #     - name: Upload Installer
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: installer-linux
+  #         path: dist/installer/*.AppImage
+  #     - name: Publish to "desktop-latest" release
+  #       uses: softprops/action-gh-release@v2
+  #       with:
+  #         tag_name: desktop-latest
+  #         name: "Amaran Physics — latest desktop build"
+  #         body: "Auto-updated on every push to main. Always reflects the current main branch — not a versioned release."
+  #         prerelease: true
+  #         files: dist/installer/*.AppImage

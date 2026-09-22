@@ -29,7 +29,6 @@ PyInstaller.__main__.run([
     "--onefile",
     "--paths=" + str(REPO_ROOT),
     "--collect-all=uvicorn",
-    "--collect-all=rasterio",
     "--hidden-import=uvicorn.lifespan.on",
     "--hidden-import=uvicorn.lifespan.off",
     "--hidden-import=uvicorn.protocols.http.auto",
