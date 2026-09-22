@@ -41,25 +41,22 @@ jobs:
           pip install pyinstaller
       - name: Build standalone backend executable
         run: python scripts/build_backend.py
-      - name: Set up Node.js 18
+      - name: Set up Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+          cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Build and Package
         run: npm run build && npm run package
+      - name: List installer output
+        run: ls -la dist/installer/
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
           name: installer-windows
           path: dist/installer/*.exe
-        continue-on-error: true
-        # continue-on-error: same reasoning as the other four Amaran OS
-        # repos' build.yml — Actions artifact storage has its own quota,
-        # separate from GitHub Release asset storage, and the release
-        # publish step below is the primary distribution path precisely
-        # because it isn't subject to that quota.
       - name: Publish to "desktop-latest" release
         uses: softprops/action-gh-release@v2
         with:
@@ -83,20 +80,26 @@ jobs:
           pip install pyinstaller
       - name: Build standalone backend executable
         run: python scripts/build_backend.py
-      - name: Set up Node.js 18
+      - name: Install Linux dependencies for electron-builder
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libfuse2 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
+      - name: Set up Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+          cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Build and Package
         run: npm run build && npm run package
+      - name: List installer output
+        run: ls -la dist/installer/
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
           name: installer-linux
           path: dist/installer/*.AppImage
-        continue-on-error: true
       - name: Publish to "desktop-latest" release
         uses: softprops/action-gh-release@v2
         with:
