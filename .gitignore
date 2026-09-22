@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+app/data/*.hgt
+app/data/*.HGT
+app/data/*.tif
+
+# Node / Electron
+node_modules/
+dist/
+
+# PyInstaller build output (scripts/build_backend.py)
+backend-dist/
+build/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,1 @@
+# Amaran Layer 3 physics solvers. Pure modules, no FastAPI imports.

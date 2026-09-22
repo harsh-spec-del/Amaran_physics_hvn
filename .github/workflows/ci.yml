@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
+      - name: Run tests
+        run: python -m pytest
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install backend dependencies + PyInstaller
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+      - name: Build standalone backend executable
+        run: python scripts/build_backend.py
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install
+      - name: Build and Package
+        run: npm run build && npm run package
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer-windows
+          path: dist/installer/*.exe
+        continue-on-error: true
+        # continue-on-error: same reasoning as the other four Amaran OS
+        # repos' build.yml — Actions artifact storage has its own quota,
+        # separate from GitHub Release asset storage, and the release
+        # publish step below is the primary distribution path precisely
+        # because it isn't subject to that quota.
+      - name: Publish to "desktop-latest" release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: desktop-latest
+          name: "Amaran Physics — latest desktop build"
+          body: "Auto-updated on every push to main. Always reflects the current main branch — not a versioned release."
+          prerelease: true
+          files: dist/installer/*.exe
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install backend dependencies + PyInstaller
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+      - name: Build standalone backend executable
+        run: python scripts/build_backend.py
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install
+      - name: Build and Package
+        run: npm run build && npm run package
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer-linux
+          path: dist/installer/*.AppImage
+        continue-on-error: true
+      - name: Publish to "desktop-latest" release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: desktop-latest
+          name: "Amaran Physics — latest desktop build"
+          body: "Auto-updated on every push to main. Always reflects the current main branch — not a versioned release."
+          prerelease: true
+          files: dist/installer/*.AppImage

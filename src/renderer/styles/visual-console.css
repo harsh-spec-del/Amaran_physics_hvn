@@ -1,0 +1,111 @@
+.nav-item { width: 100%; text-align: left; background: transparent; border: 0; }
+.nav-count { float: right; font-size: 9px; color: var(--accent-secondary); border: 1px solid var(--divider); padding: 3px 5px; }
+.sidebar-toolbox { margin-top: auto; padding: 16px 20px; border-top: 1px solid var(--divider); display: grid; gap: 9px; }
+.mini-state { display: flex; justify-content: space-between; color: var(--text-muted); font: 10px 'Roboto Condensed', sans-serif; letter-spacing: 1px; }
+.sidebar-run { border: 1px solid var(--accent-primary); background: rgba(165,111,99,.16); color: var(--accent-secondary); padding: 8px; cursor: pointer; font: 10px 'Roboto Condensed', sans-serif; letter-spacing: 1px; }
+.sidebar-run:hover:not(:disabled) { background: var(--accent-primary); color: var(--text-primary); }
+.sidebar-run:disabled { opacity: .45; cursor: default; }
+.trajectory-3d-shell { position: relative; min-height: 430px; height: min(54vh, 600px); border: 1px solid var(--divider); overflow: hidden; background: radial-gradient(circle at 50% 44%, rgba(70,72,88,.25), rgba(15,48,64,.98) 68%); cursor: grab; touch-action: none; user-select: none; }
+.trajectory-3d-shell:active { cursor: grabbing; }
+.trajectory-3d-svg { width: 100%; height: 100%; display: block; }
+.plane-3d { fill: rgba(70,72,88,.12); stroke: rgba(154,161,174,.25); stroke-width: 1; }
+.grid-3d { stroke: rgba(154,161,174,.16); stroke-width: 1; }
+.trajectory-3d-chord { stroke: rgba(237,227,220,.28); stroke-width: 1; stroke-dasharray: 5 6; }
+.trajectory-3d-path { stroke: var(--accent-secondary); stroke-width: 3; filter: drop-shadow(0 0 5px rgba(217,155,127,.35)); }
+.point-3d { stroke-width: 2; }
+.point-3d.origin { fill: var(--accent-primary); stroke: var(--text-primary); }
+.point-3d.target { fill: var(--accent-secondary); stroke: var(--bg-primary); }
+.point-3d.waypoint { fill: var(--bg-secondary); stroke: var(--accent-secondary); }
+.playhead-3d { fill: var(--text-primary); stroke: var(--accent-secondary); stroke-width: 3; filter: drop-shadow(0 0 9px rgba(237,227,220,.7)); }
+.label-3d, .mode-3d, .axis-3d { font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif; fill: var(--text-muted); letter-spacing: 1px; }
+.label-3d { font-size: 9px; fill: var(--text-primary); }
+.mode-3d { font-size: 10px; fill: var(--accent-secondary); }
+.axis-3d { font-size: 9px; }
+.trajectory-3d-hud { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--divider); background: rgba(15,48,64,.88); font: 10px 'Roboto Condensed', sans-serif; letter-spacing: 1px; }
+.trajectory-3d-hud > span:nth-child(2) { color: var(--accent-secondary); }
+.trajectory-3d-hud .sandbox-mini-action { margin-left: auto; }
+.trajectory-3d-badges { position: absolute; right: 10px; bottom: 10px; display: flex; gap: 7px; flex-wrap: wrap; justify-content: flex-end; }
+.trajectory-3d-badges span { padding: 6px 8px; background: rgba(15,48,64,.88); border: 1px solid var(--divider); color: var(--text-muted); font: 9px 'Roboto Condensed', sans-serif; letter-spacing: 1px; }
+.sandbox-mini-action { border: 1px solid var(--divider); background: transparent; color: var(--text-primary); padding: 5px 8px; cursor: pointer; font: 9px 'Roboto Condensed', sans-serif; letter-spacing: 1px; }
+.sandbox-mini-action:hover { border-color: var(--accent-secondary); color: var(--accent-secondary); }
+.selected-map-entity circle { filter: drop-shadow(0 0 8px rgba(217,155,127,.9)); }
+.entity-workspace, .sandbox-workspace { flex: 1; min-width: 0; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 18px; }
+.entity-panel { min-height: 290px; }
+.entity-toolbar { display: flex; gap: 10px; align-items: center; }
+.entity-toolbar .field-input { flex: 1; }
+.entity-summary { color: var(--text-muted); font: 10px 'Roboto Condensed', sans-serif; letter-spacing: 1px; }
+.entity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.entity-card { text-align: left; border: 1px solid var(--divider); background: rgba(70,72,88,.16); color: var(--text-primary); padding: 12px; display: grid; gap: 6px; cursor: pointer; }
+.entity-card:hover, .entity-card.active { background: rgba(165,111,99,.16); border-color: var(--accent-primary); }
+.entity-card-head { display: flex; justify-content: space-between; gap: 8px; }
+.entity-type, .entity-status, .entity-source { font: 9px 'Roboto Condensed', sans-serif; letter-spacing: 1px; color: var(--text-muted); }
+.entity-status { color: var(--accent-secondary); }
+.entity-card strong { font: 17px 'Roboto Condensed', sans-serif; }
+.entity-id, .entity-coord { color: var(--text-muted); font: 11px 'Roboto Condensed', sans-serif; font-variant-numeric: tabular-nums; }
+.entity-source { margin-top: 4px; }
+.entity-focus { display: grid; grid-template-columns: 120px repeat(3, 1fr); gap: 10px; align-items: stretch; }
+.focus-ring { min-height: 82px; display: grid; place-items: center; border: 1px solid var(--accent-primary); background: rgba(165,111,99,.14); color: var(--accent-secondary); font: 10px 'Roboto Condensed', sans-serif; letter-spacing: 1px; }
+.entity-focus .metric { min-height: 82px; }
+.sandbox-note { color: var(--text-muted); line-height: 1.5; border-left: 3px solid var(--accent-primary); padding: 10px 12px; background: rgba(70,72,88,.14); }
+.sandbox-sliders { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.sandbox-slider, .sandbox-control-row { display: grid; gap: 7px; }
+.sandbox-slider > span, .sandbox-control-row .field-label { color: var(--text-muted); font: 9px 'Roboto Condensed', sans-serif; letter-spacing: 1px; }
+.sandbox-slider input[type='range'], .sandbox-control-row input[type='range'] { width: 100%; accent-color: var(--accent-primary); }
+.sandbox-slider output, .sandbox-control-row output { color: var(--accent-secondary); font: 18px 'Roboto Condensed', sans-serif; }
+.sandbox-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.sandbox-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--divider); border-left: 1px solid var(--divider); }
+.sandbox-stat-grid .metric { border-right: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
+.sandbox-dual { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(290px, .8fr); gap: 18px; }
+.sandbox-insights { list-style: none; display: grid; gap: 14px; }
+.sandbox-insights li { display: grid; grid-template-columns: 28px 1fr; column-gap: 9px; row-gap: 2px; border-bottom: 1px solid var(--divider); padding-bottom: 12px; }
+.sandbox-insights li:last-child { border-bottom: 0; }
+.sandbox-insights li > span { color: var(--accent-secondary); font: 11px 'Roboto Condensed', sans-serif; }
+.sandbox-insights strong { font: 13px 'Roboto Condensed', sans-serif; letter-spacing: 1px; }
+.sandbox-insights p { grid-column: 2; color: var(--text-muted); font-size: 12px; line-height: 1.45; }
+
+/* Unified map + 3D theater on the Scenario Console. */
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(360px,.8fr); grid-template-rows:auto auto auto auto; align-content:start; gap:14px; }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(1) { grid-column:1; grid-row:1; min-width:0; margin-right:-8px; }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(2) { grid-column:2; grid-row:1; min-width:0; margin-left:-8px; }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(1),
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(2) { background:rgba(15,48,64,.9); border-color:rgba(217,155,127,.26); }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(1) .trajectory-3d-shell,
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(2) .map-shell { height:min(54vh,600px); min-height:430px; }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(1) .panel-rule::after { content:'GEO  ↔  ALTITUDE'; float:right; margin-top:-7px; padding-left:10px; color:var(--accent-secondary); background:rgba(15,48,64,.9); font:9px 'Roboto Condensed',sans-serif; letter-spacing:1px; }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .visual-grid,
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .input-grid,
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .route-panel { grid-column:1 / -1; }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .visual-grid { grid-row:2; }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .input-grid { grid-row:3; }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .route-panel { grid-row:4; }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(1) .trajectory-3d-shell { box-shadow:inset -1px 0 0 rgba(217,155,127,.12), inset 0 0 48px rgba(217,155,127,.035); }
+.workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(2) .map-shell { box-shadow:inset 1px 0 0 rgba(217,155,127,.12), inset 0 0 48px rgba(217,155,127,.035); }
+
+@media (max-width:1180px) {
+  .detail-panel { width:300px; flex-basis:300px; }
+  .entity-focus { grid-template-columns:repeat(2,1fr); }
+  .focus-ring { min-height:62px; }
+  .sandbox-sliders { grid-template-columns:1fr; }
+  .sandbox-stat-grid { grid-template-columns:repeat(2,1fr); }
+  .workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col { grid-template-columns:minmax(0,1fr) minmax(300px,.72fr); }
+}
+@media (max-width:900px) {
+  body { overflow:auto; }
+  .app-container { min-height:100vh; height:auto; }
+  .sidebar { width:190px; flex-basis:190px; }
+  .detail-panel { display:none; }
+  .visual-grid, .input-grid, .sandbox-dual { grid-template-columns:1fr; }
+  .entity-grid { grid-template-columns:1fr; }
+  .trajectory-3d-shell { height:430px; }
+  .workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col { display:flex; }
+  .workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(1),
+  .workspace:has(> .panel-col > .panel > .trajectory-3d-shell) .panel-col > .panel:nth-child(2) { margin-left:0; margin-right:0; }
+}
+@media (max-width:680px) {
+  .sidebar { display:none; }
+  .panel-col, .entity-workspace, .sandbox-workspace { padding:10px; }
+  .header { padding:10px 12px; }
+  .health-compact { display:none; }
+  .trajectory-3d-shell { min-height:340px; height:340px; }
+  .coord-grid { grid-template-columns:1fr; }
+}
