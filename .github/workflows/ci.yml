@@ -51,7 +51,8 @@ jobs:
       - name: Build and Package
         run: npm run build && npm run package
       - name: List installer output
-        run: ls -la dist/installer/
+        run: |
+          if ($IsWindows) { Get-ChildItem dist/installer/ } else { ls -la dist/installer/ }
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
